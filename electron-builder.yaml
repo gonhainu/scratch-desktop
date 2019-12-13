@@ -2,23 +2,23 @@ directories:
   buildResources: buildResources
   output: dist
 appId: edu.mit.scratch.scratch-desktop
-productName: "Scratch Desktop"
+productName: "Scratch-MaBeee Desktop"
 mac:
   category: public.app-category.education
   icon: buildResources/ScratchDesktop.icns
-  provisioningProfile: embedded.provisionprofile
+  # provisioningProfile: embedded.provisionprofile
   target:
-    - dmg
-    - mas
-mas:
-  type: distribution
-  category: public.app-category.education
-  entitlements: buildResources/entitlements.plist
-  icon: buildResources/ScratchDesktop.icns
+    - pkg
+    # - mas
+# mas:
+#   type: distribution
+#   category: public.app-category.education
+#   entitlements: buildResources/entitlements.plist
+#   icon: buildResources/ScratchDesktop.icns
 win:
   icon: buildResources/ScratchDesktop.ico
   target:
-    - appx
+    # - appx
     - nsis
 appx:
   identityName: ScratchFoundation.ScratchDesktop

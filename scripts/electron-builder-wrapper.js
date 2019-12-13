@@ -44,16 +44,16 @@ const getPlatformFlag = function () {
  */
 const runBuilder = function (targetGroup) {
     // the appx build fails if CSC_* or WIN_CSC_* variables are set
-    const shouldStripCSC = (targetGroup === 'appx');
-    const childEnvironment = shouldStripCSC ? stripCSC(process.env) : process.env;
-    if ((targetGroup === 'nsis') && !(childEnvironment.CSC_LINK || childEnvironment.WIN_CSC_LINK)) {
-        throw new Error(`NSIS build requires CSC_LINK or WIN_CSC_LINK`);
-    }
+    // const shouldStripCSC = (targetGroup === 'appx');
+    // const childEnvironment = shouldStripCSC ? stripCSC(process.env) : process.env;
+    // if ((targetGroup === 'nsis') && !(childEnvironment.CSC_LINK || childEnvironment.WIN_CSC_LINK)) {
+    //     throw new Error(`NSIS build requires CSC_LINK or WIN_CSC_LINK`);
+    // }
     const platformFlag = getPlatformFlag();
     const command = `electron-builder ${platformFlag} ${targetGroup}`;
     console.log(`running: ${command}`);
     spawnSync(command, {
-        env: childEnvironment,
+        // env: childEnvironment,
         shell: true,
         stdio: 'inherit'
     });
@@ -67,10 +67,11 @@ const calculateTargets = function () {
     switch (process.platform) {
     case 'win32':
         // run in two passes so we can skip signing the appx
-        return ['nsis', 'appx'];
+        return ['nsis'];
     case 'darwin':
         // run in one pass for slightly better speed
-        return ['dmg mas'];
+        return ['pkg'];
+        // return [''];
     }
     throw new Error(`Could not determine targets for platform: ${process.platform}`);
 };
